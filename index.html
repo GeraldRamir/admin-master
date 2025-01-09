@@ -76,7 +76,7 @@
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="Proyecto1.html">
-              <i class="align-middle" data-feather="cloud-lightning"></i> <span class="align-middle">Proyecto Clima</span>
+              <i class="align-middle" data-feather="cloud-lightning"></i> <span class="align-middle">Proyecto pod</span>
             </a>
 					</li>
 
@@ -129,7 +129,7 @@
 				<div class="navbar-collapse collapse">
 					<ul class="navbar-nav navbar-align">
 						<a href="#" class="list-group-item">
-							<button type="button" class="btn btn-danger" id="download-btn">descargar app</button>
+							<button type="button" class="btn btn-danger" id="download-btn">descargar aplicacion</button>
 						</a>
 						<li class="nav-item dropdown">
 							<!-- <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
@@ -390,9 +390,24 @@
 									<h5 class="card-title mb-0">Proyectos por mes</h5>
 								</div>
 								<div class="card-body py-3">
-									<div class="chart chart-sm">
-										<canvas id="chartjs-dashboard-line"></canvas>
-									</div>
+									<!-- Formulario para crear proyectos -->
+									<form id="crear-proyecto-form" class="mb-4">
+										<div class="mb-3">
+											<label for="nombre-proyecto" class="form-label">Nombre del proyecto</label>
+											<input type="text" class="form-control" id="nombre-proyecto" placeholder="Escribe el nombre del proyecto" required>
+										</div>
+										<div class="mb-3">
+											<label for="autor-proyecto" class="form-label">Autor</label>
+											<input type="text" class="form-control" id="autor-proyecto" placeholder="Nombre del autor" required>
+										</div>
+										<div class="mb-3">
+											<label for="color-interfaz" class="form-label">Color de la interfaz</label>
+											<input type="color" class="form-control form-control-color" id="color-interfaz" value="#ffffff" required>
+										</div>
+										<button type="submit" class="btn btn-primary">Crear proyecto</button>
+									</form>
+									<!-- Gráfico existente -->
+									
 								</div>
 							</div>
 						</div>
@@ -562,77 +577,9 @@
 
 	<script src="js/pwa.js"></script>
 	<script src="js/app.js"></script>
+	<script src="js/document.js"></script>
 
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-			var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
-			var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-			gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-			gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
-			// Line chart
-			new Chart(document.getElementById("chartjs-dashboard-line"), {
-				type: "line",
-				data: {
-					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-					datasets: [{
-						label: "Sales ($)",
-						fill: true,
-						backgroundColor: gradient,
-						borderColor: window.theme.primary,
-						data: [
-							2115,
-							1562,
-							1584,
-							1892,
-							1587,
-							1923,
-							2566,
-							2448,
-							2805,
-							3438,
-							2917,
-							3327
-						]
-					}]
-				},
-				options: {
-					maintainAspectRatio: false,
-					legend: {
-						display: false
-					},
-					tooltips: {
-						intersect: false
-					},
-					hover: {
-						intersect: true
-					},
-					plugins: {
-						filler: {
-							propagate: false
-						}
-					},
-					scales: {
-						xAxes: [{
-							reverse: true,
-							gridLines: {
-								color: "rgba(0,0,0,0.0)"
-							}
-						}],
-						yAxes: [{
-							ticks: {
-								stepSize: 1000
-							},
-							display: true,
-							borderDash: [3, 3],
-							gridLines: {
-								color: "rgba(0,0,0,0.0)"
-							}
-						}]
-					}
-				}
-			});
-		});
-	</script>
+
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 			// Pie chart
@@ -784,6 +731,7 @@
 			});
 		});
 	</script>
+	
 
 </body>
 

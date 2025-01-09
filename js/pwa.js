@@ -12,7 +12,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
     // Prevenir que el prompt se muestre automáticamente
     e.preventDefault();
     deferredPrompt = e;
-    // Aquí puedes mostrar un botón para que el usuario instale la PWA
+   
     document.getElementById('download-btn').style.display = 'block'; // Muestra el botón
 });
 

@@ -1,29 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="author" content="Tu nombre">
-	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+  document.getElementById("crear-proyecto-form").addEventListener("submit", function (event) {
+    event.preventDefault(); // Evita el envío del formulario
 
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+    // Recoger los valores del formulario
+    const nombreProyecto = document.getElementById("nombre-proyecto").value;
+    const autorProyecto = document.getElementById("autor-proyecto").value;
+    const colorInterfaz = document.getElementById("color-interfaz").value;
 
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    // Generar el contenido del archivo HTML con clases de Bootstrap
+    const body= document.createElement('DIV')
 
-
-	<title>Administrador de proyectos</title>
-
-	<link href="css/app.css" rel="stylesheet">
-	<link rel="stylesheet" href="./css/modal.css">
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-</head>
-
-<body>
-	<div class="wrapper">
-		<nav id="sidebar" class="sidebar js-sidebar">
+    body.innerHTML=`
+    <nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
 				<a class="sidebar-brand" href="index.html">
           <span class="align-middle">AdminMaster</span>
@@ -288,12 +276,9 @@
 					
                         <div class="row">
                             <div class="col-md-12 ">
-                                <div class="card" style="background-color: rgb(141, 27, 101); color: aqua;">
-                                    <div class="card-header">
+                                <div class="card" style="background-color: rgb(27, 78, 141); color: aqua;">
+                                    <div class="card-header " >
                                         <h5 class="card-title" style="color: rgb(27, 78, 141); font-size: 20px;">Información del Proyecto</h5>
-										<div style="display: flex; gap: 10px;" id="btnGroup">
-											
-										</div>
                                     </div>
                                     <div class="card-body " >
                                         <p class="card-text">En esta sección puedes gestionar tus proyectos, ver las tareas asociadas y su estado.</p>
@@ -452,15 +437,50 @@
 			</main>
 
 		</div>
-	</div>
+    
+    `
 
-	<script src="js/funciones.js" type="module"></script>
-	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    body.classList.add('wrapper')
+    const contenidoHTML= `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>${nombreProyecto}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    </head>
+    <body>
+
+    ${body}
 
 
+    
+    </body>
+    </html>
 
+        `;
 
-</body>
+    // Crear un archivo Blob con el contenido HTML
+    const blob = new Blob([contenidoHTML], { type: "text/html" });
+    const url = URL.createObjectURL(blob);
 
-</html>
+    // Actualizar el sidebar con un enlace al nuevo proyecto
+    const sidebar = document.querySelector(".sidebar-nav");
+    const nuevoProyecto = document.createElement("li");
+    nuevoProyecto.className = "sidebar-item";
+    nuevoProyecto.innerHTML = `
+        <a class="sidebar-link" href="${url}">
+            <i class="align-middle" data-feather="file"></i> <span class="align-middle">${nombreProyecto}</span>
+        </a>
+    `;
+    sidebar.appendChild(nuevoProyecto);
+
+    // Actualizar feather icons si los usas
+    if (typeof feather !== "undefined") feather.replace();
+
+    // Mensaje de confirmación
+    alert(`¡El proyecto "${nombreProyecto}" ha sido creado exitosamente y agregado al menú!`);
+  });
+

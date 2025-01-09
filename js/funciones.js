@@ -1,12 +1,39 @@
-import {guardartarea, obtenertareas} from "./API.js"
+import {eliminarTarea, guardartarea, obtenertareas} from "./API.js"
 (function() {
     const formulario= document.querySelector('#formulario')
+    const privado= document.querySelector('#privado')
+    const btnGroup= document.querySelector('#btnGroup')
 
 
+    
+    
+    
     document.addEventListener('DOMContentLoaded', ()=>{
-        formulario.addEventListener('submit', validar)
+   
+        btnGroup.innerHTML=`
+        <button type="button" class="btn btn-outline-success public" id="publico">Publico</button>
+		<button type="button" class="btn btn-outline-warning priv" id="privado">Privado</button> 
+        
+        `
+        btnGroup.addEventListener('click',opcion)
         mostrarTareas()
+
+        setInterval(() => {
+            mostrarTareas()
+        }, 1000);
     })
+
+    function opcion(e){
+        if(e.target.classList.contains('priv')){
+            alert('btn privado')
+            formulario.addEventListener('submit', ()=>{
+                alert('privado')
+            })
+            
+        }else{
+            formulario.addEventListener('submit', validar)
+        }
+    }
     
     
     
@@ -25,11 +52,13 @@ import {guardartarea, obtenertareas} from "./API.js"
             estado
         }
         
+        
         if (Object.values(tareas).some(campo=> campo==='')) {
             mostrarAlerta('Campos vacios')
             
         }else{
             guardartarea(tareas)
+            formulario.reset()
            
         }  
     
@@ -96,6 +125,9 @@ import {guardartarea, obtenertareas} from "./API.js"
             btnEliminar.classList.add('btn', 'btn-danger', 'btn-sm');
             
             tdAcciones.appendChild(btnEliminar);
+            btnEliminar.onclick= function(){
+                eliminarTarea(tarea.id)
+            }
     
             fila.appendChild(tdAcciones);
     
@@ -103,6 +135,7 @@ import {guardartarea, obtenertareas} from "./API.js"
             tabla.appendChild(fila);
 
             actualizarGraficoNueva()
+            console.log(tarea)
     
     
            

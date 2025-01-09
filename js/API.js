@@ -1,4 +1,4 @@
-const url='http://localhost:3000/tareas'
+const url='https://uptask-admin.onrender.com/tareas'
 
 export const guardartarea= async tarea=>{
     try {
@@ -25,6 +25,18 @@ export const obtenertareas= async ()=>{
         return respuesta
         
     } catch (error) {
+        
+    }
+}
+
+export const eliminarTarea= async id=>{
+    try {
+        
+        await fetch(`${url}/${id}`, {
+            method: 'DELETE'
+        })
+    } catch (error) {
+        console.log(error)
         
     }
 }
